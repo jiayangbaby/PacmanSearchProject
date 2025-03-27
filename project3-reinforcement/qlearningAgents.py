@@ -104,8 +104,10 @@ class QLearningAgent(ReinforcementAgent):
                 all_actions.append((self.getQValue(state,action), action))
            
             maxActions=[]   
-            #have to define the max_q_value first, calling max(all_actions) will not work
-            max_q_value = max(all_actions, key=lambda step: step[0])[0]
+            max_q_value = -1000
+            for step in all_actions:
+                if step[0]>max_q_value:
+                    max_q_value=step[0]
             #find actions with max value
             for step in all_actions:
               q_value = step[0]
@@ -159,7 +161,7 @@ class QLearningAgent(ReinforcementAgent):
           it will be called on your behalf
         """
         "*** YOUR CODE HERE ***"
-        # Q(s,a), start state q value
+        # start state q value
         q = self.getQValue(state, action)
         
         #plug in the formula
